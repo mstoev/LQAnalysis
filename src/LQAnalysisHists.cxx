@@ -10,7 +10,7 @@ using namespace uhh2;
 LQAnalysisHists::LQAnalysisHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
   // book all histograms here
   // jets
-  book<TH1F>("N_jets", "N_{jets}", 20, 0, 20);  
+  book<TH1F>("N_jets", "N_{jets}", 20, -0.5, 19.5);  
   book<TH1F>("eta_jet1", "#eta^{jet 1}", 40, -2.5, 2.5);
   book<TH1F>("eta_jet2", "#eta^{jet 2}", 40, -2.5, 2.5);
   book<TH1F>("eta_jet3", "#eta^{jet 3}", 40, -2.5, 2.5);

@@ -255,6 +255,8 @@ obj/LQAnalysisModule.o: src/LQAnalysisModule.cxx \
  /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/common/include/ObjectIdUtils.h \
  /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/common/include/ElectronHists.h \
  /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/core/include/Hists.h \
+ /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/common/include/MuonHists.h \
+ /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/common/include/EventHists.h \
  /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/LQAnalysis/include/LQAnalysisSelections.h \
  /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/core/include/Selection.h \
  /afs/desy.de/user/m/mstoev/CMSSW_7_2_1_patch4/src/UHH2/LQAnalysis/include/LQAnalysisHists.h

@@ -3,6 +3,10 @@
 #include "UHH2/core/include/fwd.h"
 #include "UHH2/core/include/Selection.h"
 
+#include "UHH2/core/include/AnalysisModule.h"
+#include "UHH2/core/include/Event.h"
+#include "UHH2/common/include/ObjectIdUtils.h"
+
 namespace uhh2 {
     
 /** NOTE: These classes are here as a (small) example only. If you need them, do NOT copy+paste these; the
@@ -14,6 +18,7 @@ class NJetSelection: public Selection {
 public:
     /// In case nmax=-1, no cut on the maximum is applied.
     explicit NJetSelection(int nmin, int nmax = -1);
+
     virtual bool passes(const Event & event) override;
     
 private:

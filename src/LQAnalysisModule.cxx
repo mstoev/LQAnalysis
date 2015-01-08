@@ -5,6 +5,8 @@
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CleaningModules.h"
 #include "UHH2/common/include/ElectronHists.h"
+#include "UHH2/common/include/MuonHists.h"
+#include "UHH2/common/include/EventHists.h"
 #include "UHH2/LQAnalysis/include/LQAnalysisSelections.h"
 #include "UHH2/LQAnalysis/include/LQAnalysisHists.h"
 
@@ -24,14 +26,16 @@ public:
 
 private:
     
+    
     std::unique_ptr<JetCleaner> jetcleaner;
+    std::unique_ptr<ElectronCleaner> electroncleaner;
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     std::unique_ptr<Selection> njet_sel, bsel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_njet, h_bsel, h_ele;
+    std::unique_ptr<Hists> h_nocuts, h_njet, h_bsel, h_ele, h_event, h_muon;
 };
 
 
@@ -55,16 +59,20 @@ LQAnalysisModule::LQAnalysisModule(Context & ctx){
     
     // 1. setup other modules. Here, only the jet cleaner
     jetcleaner.reset(new JetCleaner(30.0, 2.4));
+    //electroncleaner.reset(new ElectronCleaner());
     
+
     // 2. set up selections:
     njet_sel.reset(new NJetSelection(2));
-    bsel.reset(new NBTagSelection(1));
+    bsel.reset(new NBTagSelection(1,-1));
 
     // 3. Set up Hists classes:
     h_nocuts.reset(new LQAnalysisHists(ctx, "NoCuts"));
     h_njet.reset(new LQAnalysisHists(ctx, "Njet"));
     h_bsel.reset(new LQAnalysisHists(ctx, "Bsel"));
     h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
+    h_muon.reset(new MuonHists(ctx, "muon_nocuts"));
+    h_event.reset(new EventHists(ctx, "event_nocuts"));
 }
 
 
@@ -84,6 +92,7 @@ bool LQAnalysisModule::process(Event & event) {
     // 1. run all modules; here: only jet cleaning.
     jetcleaner->process(event);
     
+    auto met = event.met->pt();
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
@@ -97,6 +106,8 @@ bool LQAnalysisModule::process(Event & event) {
         h_bsel->fill(event);
     }
     h_ele->fill(event);
+    h_event->fill(event);
+    h_muon->fill(event);
     
     // 3. decide whether or not to keep the current event in the output:
     return njet_selection && bjet_selection;
